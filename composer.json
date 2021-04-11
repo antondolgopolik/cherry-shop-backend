@@ -1,0 +1,23 @@
+{
+    "name": "web-tech/cherry-shop-backend",
+    "description": "A simple backend for a simple online shop",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anton Dolgopolik",
+            "email": "antondolgopolikv@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-pgsql": "*",
+        "ext-json": "*",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WebTech\\CherryShop\\": "src"
+        }
+    }
+}
