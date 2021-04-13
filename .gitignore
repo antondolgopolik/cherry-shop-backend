@@ -1,5 +1,6 @@
 .idea
 vendor
+config/secrets.php
 composer.phar
 composer.lock
 admin.txt

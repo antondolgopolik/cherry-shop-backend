@@ -20,10 +20,11 @@ class LoginController
             $token = $_COOKIE[$configs['cookie-token']];
             // Проверка годен ли токен
             if (TokenDAO::getInstance()->lives($userId, $token)) {
-                echo json_encode(['isAuthorized' => true]);
+                return;
             }
         }
-        echo json_encode(['isAuthorized' => false]);
+        // Пользователь неавторизован
+        http_response_code(401);
     }
 
     function logIn(string $login, string $password): void
@@ -41,7 +42,6 @@ class LoginController
             setcookie($configs['cookie-token'], $token, $time, '/', 'cherry-shop.com');
             // Заносим новый токен в БД
             TokenDAO::getInstance()->create($userId, $token);
-            echo '{}';
         }
     }
 }

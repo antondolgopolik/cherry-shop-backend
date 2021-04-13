@@ -12,7 +12,6 @@ class RegistrationController
     {
         try {
             UserDAO::getInstance()->create($login, hash('sha256', $password));
-            echo '{}';
         } catch (PDOException $e) {
             http_response_code(409);
         }
