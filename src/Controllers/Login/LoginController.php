@@ -9,13 +9,15 @@ class LoginController
 {
     function isAuthorized(): void
     {
-        $loginIsSet = isset($_COOKIE['api-cherry-shop-login']);
-        $tokenIsSet = isset($_COOKIE['api-cherry-shop-token']);
-        // Проверка cookie
+        global $configs;
+        // Проверка наличия cookie
+        $loginIsSet = isset($_COOKIE[$configs['cookie-login']]);
+        $tokenIsSet = isset($_COOKIE[$configs['cookie-token']]);
+        // Если есть cookie
         if ($loginIsSet && $tokenIsSet) {
-            $login = $_COOKIE['api-cherry-shop-login'];
+            $login = $_COOKIE[$configs['cookie-login']];
             $userId = UserDAO::getInstance()->id($login);
-            $token = $_COOKIE['api-cherry-shop-token'];
+            $token = $_COOKIE[$configs['cookie-token']];
             // Проверка годен ли токен
             if (TokenDAO::getInstance()->lives($userId, $token)) {
                 echo json_encode(['isAuthorized' => true]);
@@ -26,7 +28,8 @@ class LoginController
 
     function logIn(string $login, string $password): void
     {
-        // Проверка существует ли пользователь с данными логином и паролем
+        global $configs;
+        // Если существует пользователь с данными логином и паролем
         if (!UserDAO::getInstance()->exists($login, hash('sha256', $password))) {
             http_response_code(401);
         } else {
@@ -34,8 +37,8 @@ class LoginController
             $token = hash('sha256', $login . $password);
             // Запоминаем в cookies
             $time = time() + 7 * 24 * 60 * 60;
-            setcookie('api-cherry-shop-login', $login, $time, '/', 'cherry-shop.com');
-            setcookie('api-cherry-shop-token', $token, $time, '/', 'cherry-shop.com');
+            setcookie($configs['cookie-login'], $login, $time, '/', 'cherry-shop.com');
+            setcookie($configs['cookie-token'], $token, $time, '/', 'cherry-shop.com');
             // Заносим новый токен в БД
             TokenDAO::getInstance()->create($userId, $token);
             echo '{}';

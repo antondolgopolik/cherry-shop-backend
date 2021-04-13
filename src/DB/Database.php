@@ -23,12 +23,11 @@ class Database
 
     private function __construct()
     {
-        // Login: AntonDolgopolik
-        // Password: 27sFsdS12xx94
-        $this->host = "localhost";
-        $this->dbname = "cherry_shop";
-        $this->user = "anton";
-        $this->password = "&&||andorjavacoder";
+        global $secrets;
+        $this->host = $secrets['db-host'];
+        $this->dbname = $secrets['db-name'];
+        $this->user = $secrets['db-user'];
+        $this->password = $secrets['db-password'];
     }
 
     private function __clone()

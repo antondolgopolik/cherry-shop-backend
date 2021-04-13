@@ -7,33 +7,41 @@ use WebTech\CherryShop\Controllers\Registration\RegistrationController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-$url = $_SERVER['DOCUMENT_URI'];
-$urlParts = explode('/', $url);
+// Подгрузка конфигураций
+$configs = require_once __DIR__ . "/../config/configs.php";
+$secrets = require_once __DIR__ . "/../config/secrets.php";
+// Маршрутизация
+route();
 
-switch ($urlParts[1]) {
+function route(): void
+{
+    // Разбиение пути на части
+    $urlPath = $_SERVER['DOCUMENT_URI'];
+    $urlPathParts = explode('/', $urlPath);
     // Определение контроллера
-    case 'login':
-        login();
-        break;
-    case 'registration':
-        registration();
-        break;
-    case 'home':
-        home();
-        break;
-    case 'products':
-        products();
-        break;
-    default :
-        error();
+    switch ($urlPathParts[1]) {
+        case 'login':
+            login($urlPathParts);
+            break;
+        case 'registration':
+            registration($urlPathParts);
+            break;
+        case 'home':
+            home($urlPathParts);
+            break;
+        case 'products':
+            products($urlPathParts);
+            break;
+        default :
+            error();
+    }
 }
 
-function login()
+function login(array $urlPathParts): void
 {
-    global $urlParts;
     $controller = new LoginController();
     // Определение функции
-    switch ($urlParts[2]) {
+    switch ($urlPathParts[2]) {
         case 'isAuthorized.php':
             $controller->isAuthorized();
             break;
@@ -45,12 +53,11 @@ function login()
     }
 }
 
-function registration()
+function registration(array $urlPathParts): void
 {
-    global $urlParts;
     $controller = new RegistrationController();
     // Определение функции
-    switch ($urlParts[2]) {
+    switch ($urlPathParts[2]) {
         case 'signUp.php':
             $controller->signUp($_POST['login'], $_POST['password']);
             break;
@@ -59,23 +66,21 @@ function registration()
     }
 }
 
-function home()
+function home(array $urlPathParts): void
 {
-    global $urlParts;
     $controller = new HomeController();
     // Определение функции
-    switch ($urlParts[2]) {
+    switch ($urlPathParts[2]) {
         default:
             error();
     }
 }
 
-function products()
+function products(array $urlPathParts): void
 {
-    global $urlParts;
     $controller = new ProductsController();
     // Определение функции
-    switch ($urlParts[2]) {
+    switch ($urlPathParts[2]) {
         case 'getAll.php':
             $controller->getAll();
             break;
@@ -84,7 +89,7 @@ function products()
     }
 }
 
-function error()
+function error(): void
 {
     echo 'Error';
 }
