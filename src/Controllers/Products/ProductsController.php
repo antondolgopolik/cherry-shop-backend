@@ -1,8 +1,8 @@
 <?php
 
-namespace WebTech\CherryShop\controllers\products;
+namespace WebTech\CherryShop\Controllers\Products;
 
-use WebTech\CherryShop\dao\ProductDAO;
+use WebTech\CherryShop\DAO\ProductDAO;
 
 class ProductsController
 {

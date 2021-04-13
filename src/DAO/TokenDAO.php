@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WebTech\CherryShop\dao;
+namespace WebTech\CherryShop\DAO;
 
 use PDO;
-use WebTech\CherryShop\db\Database;
+use WebTech\CherryShop\DB\Database;
 
 class TokenDAO
 {
@@ -36,7 +36,7 @@ class TokenDAO
         trigger_error('Class could not be deserialized', E_USER_ERROR);
     }
 
-    public function create($user_id, $token): void
+    public function create(int $user_id, string $token): void
     {
         // Подготовка запроса
         $sql = 'INSERT INTO tokens (user_id, token) VALUES (?, ?)';

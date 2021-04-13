@@ -1,9 +1,9 @@
 <?php
 
-namespace WebTech\CherryShop\controllers\login;
+namespace WebTech\CherryShop\Controllers\Login;
 
-use WebTech\CherryShop\dao\UserDAO;
-use WebTech\CherryShop\dao\TokenDAO;
+use WebTech\CherryShop\DAO\UserDAO;
+use WebTech\CherryShop\DAO\TokenDAO;
 
 class LoginController
 {
@@ -18,14 +18,13 @@ class LoginController
             $token = $_COOKIE['api-cherry-shop-token'];
             // Проверка годен ли токен
             if (TokenDAO::getInstance()->lives($userId, $token)) {
-                echo json_encode(array('isAuthorized' => true));
-                return;
+                echo json_encode(['isAuthorized' => true]);
             }
         }
-        echo json_encode(array('isAuthorized' => false));
+        echo json_encode(['isAuthorized' => false]);
     }
 
-    function logIn($login, $password): void
+    function logIn(string $login, string $password): void
     {
         // Проверка существует ли пользователь с данными логином и паролем
         if (!UserDAO::getInstance()->exists($login, hash('sha256', $password))) {
