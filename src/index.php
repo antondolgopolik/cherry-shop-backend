@@ -1,9 +1,9 @@
 <?php
 
-use WebTech\CherryShop\controllers\home\HomeController;
-use WebTech\CherryShop\controllers\login\LoginController;
-use WebTech\CherryShop\controllers\products\ProductsController;
-use WebTech\CherryShop\controllers\registration\RegistrationController;
+use WebTech\CherryShop\Controllers\Home\HomeController;
+use WebTech\CherryShop\Controllers\Login\LoginController;
+use WebTech\CherryShop\Controllers\Products\ProductsController;
+use WebTech\CherryShop\Controllers\Registration\RegistrationController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 

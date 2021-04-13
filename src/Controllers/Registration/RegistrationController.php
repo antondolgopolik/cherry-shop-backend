@@ -1,14 +1,14 @@
 <?php
 
 
-namespace WebTech\CherryShop\controllers\registration;
+namespace WebTech\CherryShop\Controllers\Registration;
 
 use PDOException;
-use WebTech\CherryShop\dao\UserDAO;
+use WebTech\CherryShop\DAO\UserDAO;
 
 class RegistrationController
 {
-    function signUp($login, $password): void
+    function signUp(string $login, string $password): void
     {
         try {
             UserDAO::getInstance()->create($login, hash('sha256', $password));

@@ -1,6 +1,6 @@
 <?php
 
-namespace WebTech\CherryShop\db;
+namespace WebTech\CherryShop\DB;
 
 use PDO;
 

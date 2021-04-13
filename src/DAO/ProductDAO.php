@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WebTech\CherryShop\dao;
+namespace WebTech\CherryShop\DAO;
 
 use PDO;
-use WebTech\CherryShop\db\Database;
+use WebTech\CherryShop\DB\Database;
 
 class ProductDAO
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WebTech\CherryShop\dao;
+namespace WebTech\CherryShop\DAO;
 
 use PDO;
-use WebTech\CherryShop\db\Database;
+use WebTech\CherryShop\DB\Database;
 
 class UserDAO
 {
@@ -36,7 +36,7 @@ class UserDAO
         trigger_error('Class could not be deserialized', E_USER_ERROR);
     }
 
-    public function create($login, $password): void
+    public function create(string $login,string $password): void
     {
         // Подготовка запроса
         $sql = 'INSERT INTO users (user_login, user_password, user_type) VALUES (?, ?, 0)';
@@ -45,7 +45,7 @@ class UserDAO
         $statement->execute(array($login, $password));
     }
 
-    public function id($login): int
+    public function id(string $login): int
     {
         // Подготовка запроса
         $sql = 'SELECT id FROM users WHERE user_login = ?';
@@ -57,7 +57,7 @@ class UserDAO
         return $result['id'];
     }
 
-    public function exists($login, $password): bool
+    public function exists(string $login, string $password): bool
     {
         // Подготовка запроса
         $sql = 'SELECT * FROM users WHERE user_login = ? and user_password = ?';
