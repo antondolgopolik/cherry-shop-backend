@@ -46,4 +46,15 @@ class ProductDAO
 
         return $statement->fetchAll();
     }
+
+    public function read(int $id): array
+    {
+        // Подготовка запроса
+        $sql = 'SELECT * FROM products WHERE id=?';
+        $statement = $this->connection->prepare($sql);
+        // Выполнение запроса
+        $statement->execute([$id]);
+
+        return $statement->fetch();
+    }
 }

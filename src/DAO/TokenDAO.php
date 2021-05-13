@@ -42,7 +42,7 @@ class TokenDAO
         $sql = 'INSERT INTO tokens (user_id, token) VALUES (?, ?)';
         $statement = $this->connection->prepare($sql);
         // Выполнение запроса
-        $statement->execute(array($user_id, $token));
+        $statement->execute([$user_id, $token]);
     }
 
     public function lives(int $user_id, string $token): bool
@@ -51,7 +51,7 @@ class TokenDAO
         $sql = 'SELECT * FROM tokens WHERE (user_id = ?) and (token = ?) and (age(current_timestamp, generation_date) < ttl)';
         $statement = $this->connection->prepare($sql);
         // Выполнение запроса
-        $statement->execute(array($user_id, $token));
+        $statement->execute([$user_id, $token]);
         $result = $statement->fetchAll();
 
         return !empty($result);

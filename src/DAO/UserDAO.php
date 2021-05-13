@@ -36,13 +36,13 @@ class UserDAO
         trigger_error('Class could not be deserialized', E_USER_ERROR);
     }
 
-    public function create(string $login,string $password): void
+    public function create(string $login, string $password): void
     {
         // Подготовка запроса
         $sql = 'INSERT INTO users (user_login, user_password, user_type) VALUES (?, ?, 0)';
         $statement = $this->connection->prepare($sql);
         // Выполнение запроса
-        $statement->execute(array($login, $password));
+        $statement->execute([$login, $password]);
     }
 
     public function id(string $login): int
@@ -51,7 +51,7 @@ class UserDAO
         $sql = 'SELECT id FROM users WHERE user_login = ?';
         $statement = $this->connection->prepare($sql);
         // Выполнение запроса
-        $statement->execute(array($login));
+        $statement->execute([$login]);
         $result = $statement->fetch();
 
         return $result['id'];
@@ -63,7 +63,7 @@ class UserDAO
         $sql = 'SELECT * FROM users WHERE user_login = ? and user_password = ?';
         $statement = $this->connection->prepare($sql);
         // Выполнение запроса
-        $statement->execute(array($login, $password));
+        $statement->execute([$login, $password]);
         $result = $statement->fetchAll();
 
         return !empty($result);

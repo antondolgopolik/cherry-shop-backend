@@ -42,10 +42,10 @@ function login(array $urlPathParts): void
     $controller = new LoginController();
     // Определение функции
     switch ($urlPathParts[2]) {
-        case 'isAuthorized.php':
+        case 'isAuthorized':
             $controller->isAuthorized();
             break;
-        case 'logIn.php':
+        case 'logIn':
             $controller->logIn($_GET['login'], $_GET['password']);
             break;
         default:
@@ -58,7 +58,7 @@ function registration(array $urlPathParts): void
     $controller = new RegistrationController();
     // Определение функции
     switch ($urlPathParts[2]) {
-        case 'signUp.php':
+        case 'signUp':
             $controller->signUp($_POST['login'], $_POST['password']);
             break;
         default:
@@ -81,8 +81,11 @@ function products(array $urlPathParts): void
     $controller = new ProductsController();
     // Определение функции
     switch ($urlPathParts[2]) {
-        case 'getAll.php':
+        case 'getAll':
             $controller->getAll();
+            break;
+        case 'get':
+            $controller->get($_GET['id']);
             break;
         default:
             error();
